@@ -1,0 +1,10 @@
+.application {
+  background-color: #fefefe;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.app_container {
+  box-sizing: border-box;
+  padding: 1rem;
+}

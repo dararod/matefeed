@@ -1,5 +1,5 @@
 {
-  "name": "fastify-next-project",
+  "name": "@matefeed/matefeed",
   "version": "0.1.0",
   "main": "server.ts",
   "repository": "https://github.com/EstebanBorai/fastify-next-project.git",
