@@ -1,9 +1,9 @@
+import account from './account';
+
 import type {
   FastifyError,
   FastifyInstance,
   FastifyRegisterOptions,
-  FastifyReply,
-  FastifyRequest,
 } from 'fastify';
 
 export default function (
@@ -11,11 +11,8 @@ export default function (
   _: FastifyRegisterOptions<unknown>,
   done: (err?: FastifyError) => void,
 ): void {
-  fastify.get('/', (_: FastifyRequest, reply: FastifyReply) => {
-    reply.send({
-      message: 'This is an API Route!',
-      hint: 'Every request to api/v1 will be handled by Fastify without using the NextJS plugin',
-    });
+  fastify.register(account, {
+    prefix: 'account',
   });
 
   done();
