@@ -18,8 +18,8 @@
   align-items: center;
   border-radius: 100px;
   display: flex;
+  height: 50px;
   justify-content: center;
   overflow: hidden;
-  height: 50px;
   width: 50px;
 }

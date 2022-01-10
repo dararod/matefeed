@@ -12,9 +12,10 @@
     "build:server": "tsc",
     "dev": "NEXT_TELEMETRY_DISABLED=1 ts-node-dev --ignore-watch ./src/client --transpile-only ./src/main.ts",
     "eslint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "fmt": "eslint . --ext .js,.jsx,.ts,.tsx --fix && prettier --write \"**/*.{json,md,yml,ts,tsx,js,jsx}\"",
+    "fmt": "eslint . --ext .js,.jsx,.ts,.tsx --fix && prettier --write \"**/*.{json,md,yml,ts,tsx,js,jsx}\" && stylelint --fix \"src/client/**/*.css\"",
     "prettier": "prettier -c \"**/*.{md,json,yml,sh}\"",
-    "start": "NEXT_TELEMETRY_DISABLED=1 node ./dist/main.js"
+    "start": "NEXT_TELEMETRY_DISABLED=1 node ./dist/main.js",
+    "stylelint": "stylelint \"src/client/**/*.css\""
   },
   "dependencies": {
     "fastify": "^3.25.3",
@@ -32,6 +33,9 @@
     "@typescript-eslint/parser": "^5.8.1",
     "eslint": "^8.5.0",
     "prettier": "^2.5.1",
+    "stylelint": "^14.2.0",
+    "stylelint-config-standard": "^24.0.0",
+    "stylelint-order": "^5.0.0",
     "ts-node": "^10.4.0",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.5.4"
