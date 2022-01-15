@@ -16,9 +16,9 @@ export default function Login(): JSX.Element {
               <h2>Log in</h2> to get in touch with your commmunity
             </span>
           </div>
-          <LoginForm />
+          <LoginForm onSuccess={() => window.location.assign('/')} />
           <small className={styles.signup_message}>
-            Don't have an account? <Link href="/auth/signup">Sign up</Link>
+            Don't have an account? <Link href="/signup">Sign up</Link>
           </small>
         </div>
         <footer className={styles.footer}>

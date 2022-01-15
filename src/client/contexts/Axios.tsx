@@ -22,9 +22,7 @@ export function AxiosContextProvider({
   const axios = new Axios({
     baseURL: '/',
     timeout: 1000,
-    validateStatus(_status: number) {
-      return true;
-    },
+    validateStatus: null,
   });
 
   return (

@@ -1,4 +1,5 @@
 import Layout from '../components/Layout';
+import { getServerSidePropsAuthenticated } from '../utils/auth';
 
 export default function Home(): JSX.Element {
   return (
@@ -9,3 +10,5 @@ export default function Home(): JSX.Element {
     </Layout>
   );
 }
+
+export const getServerSideProps = getServerSidePropsAuthenticated();

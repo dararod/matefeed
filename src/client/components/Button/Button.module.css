@@ -1,18 +1,44 @@
 .button {
+  align-items: center;
   background-color: var(--gray);
   border: 1px solid transparent;
   border-radius: .25rem;
   box-sizing: border-box;
   color: var(--black);
   cursor: pointer;
+  display: flex;
   font-size: .8rem;
   font-weight: bold;
+  justify-content: center;
   padding-bottom: .75rem;
   padding-top: .75rem;
   padding-right: .95rem;
   padding-left: .95rem;
   text-transform: uppercase;
   transition: background-color var(--transition-time);
+}
+
+.button:disabled,
+.button:disabled:hover {
+  background-color: var(--grey);
+  color: var(--gray);
+  cursor: pointer;
+}
+
+@keyframes spin {
+  from {
+    transform:rotate(0deg);
+  }
+
+  to {
+    transform:rotate(360deg);
+  }
+}
+
+.loader {
+  animation: spin 4s infinite linear;
+  font-size: 1rem;
+  margin-left: .5rem;
 }
 
 .primary {

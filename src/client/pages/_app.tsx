@@ -1,23 +1,58 @@
+import { CreatePostContextProvider } from '../contexts/CreatePost';
+import { AxiosContextProvider } from '../contexts/Axios';
+import { SessionContextProvider } from '../contexts/Session';
+
+import type { ReactNode } from 'react';
+import type { AppContext } from 'next/app';
 import type { NextComponentType } from 'next';
 
 import '../styles/global.css';
-import { CreatePostContextProvider } from '../contexts/CreatePost';
-import { AxiosContextProvider } from '../contexts/Axios';
 
 function App({
   Component,
   pageProps,
 }: {
   Component: NextComponentType;
-  pageProps: Record<string, unknown>;
+  pageProps: {
+    session: {
+      token: string;
+      refreshToken: string;
+    };
+  } & { [key: string]: unknown; children: ReactNode };
 }): JSX.Element {
   return (
-    <AxiosContextProvider>
-      <CreatePostContextProvider>
-        <Component {...pageProps} />
-      </CreatePostContextProvider>
-    </AxiosContextProvider>
+    <SessionContextProvider session={pageProps.session}>
+      <AxiosContextProvider>
+        <CreatePostContextProvider>
+          <Component {...pageProps} />
+        </CreatePostContextProvider>
+      </AxiosContextProvider>
+    </SessionContextProvider>
   );
 }
+
+/**
+ * There's some caveats on this approach, read more on:
+ *
+ * https://nextjs.org/docs/advanced-features/custom-app#caveats
+ */
+App.getInitialProps = async (context: AppContext) => {
+  const cookies = (
+    context.ctx.req as unknown as {
+      cookies: { token: string; refreshToken: string };
+    }
+  )?.cookies;
+
+  const session = {
+    token: cookies?.token,
+    refreshToken: cookies?.refreshToken,
+  };
+
+  return {
+    pageProps: {
+      session,
+    },
+  };
+};
 
 export default App;

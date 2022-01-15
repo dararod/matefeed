@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -13,8 +13,16 @@ export default function SignUpForm({
 }: {
   onSucces(): void;
 }): JSX.Element {
+  const [error, setError] = useState<null | string>(null);
   const axios = useAxios();
-  const { handleChange, handleSubmit, handleBlur, values, errors } = useFormik<{
+  const {
+    handleChange,
+    handleSubmit,
+    handleBlur,
+    values,
+    errors,
+    isSubmitting,
+  } = useFormik<{
     firstName: string;
     lastName: string;
     username: string;
@@ -78,6 +86,7 @@ export default function SignUpForm({
           headers: {
             'content-type': 'application/json',
           },
+          validateStatus: null,
         },
       );
 
@@ -86,7 +95,7 @@ export default function SignUpForm({
         return;
       }
 
-      console.error(response);
+      setError(JSON.parse(response.data).message);
     },
   });
 
@@ -146,7 +155,8 @@ export default function SignUpForm({
         onBlur={handleBlur}
         value={values.confirmPassword}
       />
-      <Button type="submit" variant="primary">
+      {error && <p className={styles.errorMessage}>{error}</p>}
+      <Button type="submit" variant="primary" isLoading={isSubmitting}>
         Sign up
       </Button>
     </form>

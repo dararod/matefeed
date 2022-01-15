@@ -7,5 +7,10 @@ declare module 'fastify' {
   export interface FastifyInstance {
     database: Knex;
     services: Services;
+    user: {
+      email: string;
+      iat: number;
+      exp: number;
+    };
   }
 }

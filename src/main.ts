@@ -1,4 +1,5 @@
 import makeServer from './server';
+import { getEnv } from './server/infrastructure/environment';
 
 (async () => {
   if (process.env.NODE_ENV !== 'production') {
@@ -9,5 +10,5 @@ import makeServer from './server';
 
   const server = await makeServer();
 
-  server.listen(process.env.PORT);
+  server.listen(getEnv('PORT'));
 })();

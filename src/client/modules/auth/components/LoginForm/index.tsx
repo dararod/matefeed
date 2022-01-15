@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 import Button from '../../../../components/Button';
 import Input from '../../../../components/Input';
+import { useAxios } from '../../../../hooks/useAxios';
 
 import styles from './LoginForm.module.css';
 
-export default function LoginForm(): JSX.Element {
-  const { handleChange, handleSubmit, handleBlur, errors, values } = useFormik<{
+export default function LoginForm({
+  onSuccess,
+}: {
+  onSuccess: () => void;
+}): JSX.Element {
+  const [error, setError] = useState<null | string>(null);
+  const axios = useAxios();
+  const {
+    handleChange,
+    handleSubmit,
+    handleBlur,
+    errors,
+    values,
+    isSubmitting,
+  } = useFormik<{
     userId: string;
     password: string;
   }>({
@@ -23,8 +37,25 @@ export default function LoginForm(): JSX.Element {
       userId: Yup.string().trim().required('Enter your email or your username'),
       password: Yup.string().trim().required('Enter your password'),
     }),
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      const response = await axios.get('/api/v1/account/login', {
+        auth: {
+          username: values.userId,
+          password: values.password,
+        },
+        headers: {
+          'content-type': 'application/json',
+        },
+        responseType: 'json',
+        validateStatus: null,
+      });
+
+      if (response.status === 200) {
+        onSuccess();
+        return;
+      }
+
+      setError(JSON.parse(response.data).message);
     },
   });
 
@@ -54,7 +85,8 @@ export default function LoginForm(): JSX.Element {
           <small className={styles.keep_logged}>Keep me logged in</small>
         </label>
       </div>
-      <Button type="submit" variant="primary">
+      {error && <p className={styles.errorMessage}>{error}</p>}
+      <Button type="submit" variant="primary" isLoading={isSubmitting}>
         Log in
       </Button>
     </form>

@@ -12,3 +12,8 @@
   margin-top: 0.5rem;
   margin-bottom: 1.5rem;
 }
+
+.errorMessage {
+  color: var(--red);
+  font-size: .9rem;
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 
 import SignUpForm from '../../components/SignUpForm';
@@ -6,6 +6,10 @@ import SignUpForm from '../../components/SignUpForm';
 import styles from './SignUp.module.css';
 
 export default function SignUp(): JSX.Element {
+  const [currentStep, setCurrentStep] = useState<'register' | 'success'>(
+    'register',
+  );
+
   return (
     <main className={styles.signup_view}>
       <article className={styles.card}>
@@ -15,10 +19,16 @@ export default function SignUp(): JSX.Element {
               <h2>Sign up</h2> to join communities and meet people
             </span>
           </div>
-          <SignUpForm onSucces={() => console.log('User Created')} />
-          <small className={styles.login_message}>
-            Already have an account? <Link href="/auth/login">Log in</Link>
-          </small>
+          {currentStep === 'register' ? (
+            <>
+              <SignUpForm onSucces={() => setCurrentStep('success')} />
+              <small className={styles.login_message}>
+                Already have an account? <Link href="/login">Log in</Link>
+              </small>
+            </>
+          ) : (
+            <article>Welcome to matefeed!</article>
+          )}
         </div>
         <footer className={styles.footer}>
           <small>

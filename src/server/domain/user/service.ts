@@ -1,7 +1,9 @@
 import bcrypt from 'bcrypt';
+import * as jsonWebToken from 'jsonwebtoken';
 
 import { UserRepository } from './repository';
 import { DomainError } from '../../infrastructure/error/DomainError';
+import { getEnv } from '../../infrastructure/environment';
 
 import type { User } from './entity';
 import type { RegisterUser } from './dto';
@@ -42,7 +44,7 @@ export class UserService {
 
     if (!password.match(/(?=.*?[#?!@$ %^&*-]).{8,}/)) {
       errorMessages.push(
-        'Must have at one of the following symbol characters: #?!@$ %^&*-',
+        'Must have at least one of the following symbol characters: #?!@$ %^&*-',
       );
     }
 
@@ -69,6 +71,74 @@ export class UserService {
     }
 
     throw DomainError.withMessage('The username has an invalid format');
+  }
+
+  public async login(
+    userId: string,
+    password: string,
+  ): Promise<{ token: string; refreshToken: string; user: User }> {
+    const user = await this.validateCredentials(userId, password);
+    const { token, refreshToken } = this.signTokens(user);
+
+    return {
+      token,
+      refreshToken,
+      user: {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        username: user.username,
+        birthdate: user.birthdate,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      },
+    };
+  }
+
+  private signTokens(user: User) {
+    return {
+      token: jsonWebToken.sign(
+        {
+          id: user.id,
+        },
+        getEnv('JWT_SECRET'),
+        {
+          algorithm: 'HS256',
+          audience: 'matefeed',
+          issuer: 'matefeed',
+          expiresIn: getEnv('JWT_TTL'),
+        },
+      ),
+      refreshToken: jsonWebToken.sign({}, getEnv('JWT_SECRET'), {
+        algorithm: 'HS256',
+        audience: 'matefeed',
+        issuer: 'matefeed',
+        expiresIn: getEnv('JWT_REFRESH_TOKEN_TTL'),
+      }),
+    };
+  }
+
+  private async validateCredentials(
+    userId: string,
+    password: string,
+  ): Promise<User> {
+    const strategy = userId.includes('@') ? 'email' : 'username';
+    const user = (await this.repository.findOne({
+      [strategy]: userId,
+    })) as User & { passwordHash: string };
+
+    if (!user) {
+      throw DomainError.withMessage('Invalid credentials.', 400);
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+
+    if (!isPasswordValid) {
+      throw DomainError.withMessage('Invalid credentials.', 400);
+    }
+
+    return user;
   }
 
   public async register(user: RegisterUser): Promise<User> {
