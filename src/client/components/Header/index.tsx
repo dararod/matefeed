@@ -12,10 +12,10 @@ export default function Header(): JSX.Element {
       <nav>
         <ul>
           <li>
-            <NavLink href="/">🔮 Feed</NavLink>
+            <NavLink href="/">🔮&nbsp;Feed</NavLink>
           </li>
           <li>
-            <NavLink href="/hot">🔥 Hottest</NavLink>
+            <NavLink href="/hot">🔥&nbsp;Hot</NavLink>
           </li>
         </ul>
       </nav>

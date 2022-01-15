@@ -82,7 +82,7 @@ export class UserService {
       lastName: user.lastName,
       username: user.username,
       email: user.email,
-      birthday: new Date(user.birthday),
+      birthdate: new Date(user.birthdate),
       passwordHash,
     });
 
@@ -92,7 +92,7 @@ export class UserService {
       lastName: added.lastName,
       email: added.email,
       username: added.username,
-      birthday: added.birthday,
+      birthdate: added.birthdate,
       createdAt: added.createdAt,
       updatedAt: added.updatedAt,
     };

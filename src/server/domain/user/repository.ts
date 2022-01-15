@@ -13,7 +13,7 @@ export class UserRepository extends Repository<User> {
     lastName: string;
     username: string;
     email: string;
-    birthday: Date;
+    birthdate: Date;
     passwordHash: string;
   }): Promise<User> {
     return super.add(payload);

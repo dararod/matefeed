@@ -1,8 +1,8 @@
-import Layout from '../components/Layout';
-
 import type { NextComponentType } from 'next';
 
 import '../styles/global.css';
+import { CreatePostContextProvider } from '../contexts/CreatePost';
+import { AxiosContextProvider } from '../contexts/Axios';
 
 function App({
   Component,
@@ -12,9 +12,11 @@ function App({
   pageProps: Record<string, unknown>;
 }): JSX.Element {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <AxiosContextProvider>
+      <CreatePostContextProvider>
+        <Component {...pageProps} />
+      </CreatePostContextProvider>
+    </AxiosContextProvider>
   );
 }
 

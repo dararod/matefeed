@@ -1,10 +1,10 @@
 import Layout from '../components/Layout';
 
-export default function Home(): JSX.Element {
+export default function Hot(): JSX.Element {
   return (
     <Layout>
       <section>
-        <h1>Feed</h1>
+        <h1>Hot</h1>
       </section>
     </Layout>
   );

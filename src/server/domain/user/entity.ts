@@ -4,7 +4,7 @@ export interface User {
   lastName: string;
   email: string;
   username: string;
-  birthday: Date;
+  birthdate: Date;
   createdAt: Date;
   updatedAt: Date;
 }

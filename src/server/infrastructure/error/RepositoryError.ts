@@ -22,6 +22,13 @@ export class RepositoryError extends ApiError {
       );
     }
 
+    if (error.code === '22007') {
+      return new RepositoryError(
+        'Invalid Date/Time format',
+        StatusCodes.BAD_REQUEST,
+      );
+    }
+
     // This is an unhandled database error, you must add it to this switch
     console.error(error);
     return new RepositoryError(error.detail, StatusCodes.IM_A_TEAPOT);

@@ -10,16 +10,19 @@
   font-size: 1.5rem;
 }
 
-.action_button:hover {
-  background-color: gray;
-}
-
 .avatar {
   align-items: center;
   border-radius: 100px;
   display: flex;
-  height: 50px;
-  justify-content: center;
+  justify-content: right;
   overflow: hidden;
   width: 50px;
+  margin-left: 1rem;
+  margin-right: 0;
+}
+
+.create_post_icon {
+  margin-top: 10px;
+  height: 35px;
+  width: 35px;
 }

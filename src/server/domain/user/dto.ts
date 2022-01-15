@@ -6,7 +6,7 @@ export const RegisterUserDto = Type.Object({
   email: Type.String(),
   password: Type.String(),
   username: Type.String(),
-  birthday: Type.String(),
+  birthdate: Type.String(),
 });
 
 export type RegisterUser = Static<typeof RegisterUserDto>;

@@ -1,0 +1,25 @@
+.button {
+  background-color: var(--gray);
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  box-sizing: border-box;
+  color: var(--black);
+  cursor: pointer;
+  font-size: .8rem;
+  font-weight: bold;
+  padding-bottom: .75rem;
+  padding-top: .75rem;
+  padding-right: .95rem;
+  padding-left: .95rem;
+  text-transform: uppercase;
+  transition: background-color var(--transition-time);
+}
+
+.primary {
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+.primary:hover {
+  background-color: var(--blue-darken);
+}
