@@ -27,6 +27,7 @@ specifiers:
   prettier: ^2.5.1
   react: ^17.0.2
   react-dom: ^17.0.2
+  react-feather: ^2.0.9
   stylelint: ^14.2.0
   stylelint-config-standard: ^24.0.0
   stylelint-order: ^5.0.0
@@ -52,6 +53,7 @@ dependencies:
   pino-pretty: 7.3.0
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
+  react-feather: 2.0.9_react@17.0.2
   yup: 0.32.11
 
 devDependencies:
@@ -3189,6 +3191,14 @@ packages:
     engines: {node: '>=0.4.0'}
     dev: true
 
+  /prop-types/15.8.1:
+    resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      react-is: 16.13.1
+    dev: false
+
   /property-expr/2.0.4:
     resolution: {integrity: sha512-sFPkHQjVKheDNnPvotjQmm3KD3uk1fWKUN7CrpdbwmUx3CrG3QiM8QpTSimvig5vTXmTvjz7+TDvXOI9+4rkcg==}
     dev: false
@@ -3287,6 +3297,15 @@ packages:
 
   /react-fast-compare/2.0.4:
     resolution: {integrity: sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==}
+    dev: false
+
+  /react-feather/2.0.9_react@17.0.2:
+    resolution: {integrity: sha512-yMfCGRkZdXwIs23Zw/zIWCJO3m3tlaUvtHiXlW+3FH7cIT6fiK1iJ7RJWugXq7Fso8ZaQyUm92/GOOHXvkiVUw==}
+    peerDependencies:
+      react: ^16.8.6 || ^17
+    dependencies:
+      prop-types: 15.8.1
+      react: 17.0.2
     dev: false
 
   /react-is/16.13.1:

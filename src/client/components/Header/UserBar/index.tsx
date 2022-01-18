@@ -1,10 +1,9 @@
 import React from 'react';
+import { Edit } from 'react-feather';
 
 import { useCreatePost } from '../../../hooks/useCreatePost';
 
 import styles from './UserBar.module.css';
-
-import CreatePost from '../../icons/CreatePost';
 
 export default function UserBar(): JSX.Element {
   const createPost = useCreatePost();
@@ -12,7 +11,7 @@ export default function UserBar(): JSX.Element {
   return (
     <div className={styles.userbar}>
       <button className={styles.action_button} onClick={createPost.openModal}>
-        <CreatePost className={styles.create_post_icon} />
+        <Edit />
       </button>
       <figure className={styles.avatar}>
         <img

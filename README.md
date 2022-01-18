@@ -53,6 +53,12 @@ pnpm run dev
 
 The project must be available on http://localhost:3000.
 
+## Icons
+
+This application uses [Feathericons](https://feathericons.com) to provide icons.
+You must import them from the `react-feather` module and use them as specified
+here: https://github.com/feathericons/react-feather.
+
 # Contributing
 
 Every kind of contribution to this project is welcome, please, don't hesitate
