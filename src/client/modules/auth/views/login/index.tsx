@@ -1,23 +1,24 @@
 import React from 'react';
 import Link from 'next/link';
 
-import SignUpForm from '../../components/SignUpForm';
+import LoginForm from '../../components/LoginForm';
 
-import styles from './SignUp.module.css';
+import styles from './Login.module.css';
 
-export default function SignUp(): JSX.Element {
+export default function Login(): JSX.Element {
   return (
-    <main className={styles.signup_view}>
+    <main className={styles.signin_view}>
       <article className={styles.card}>
         <div className={styles.form_container}>
           <div className={styles.greeting_container}>
+            <h1 className={styles.title_signin}>matefeed</h1>
             <span className={styles.greeting}>
-              <h2>Sign up</h2> to join communities and meet people
+              <h2>Log in</h2> to get in touch with your commmunity
             </span>
           </div>
-          <SignUpForm onSucces={() => console.log('User Created')} />
-          <small className={styles.login_message}>
-            Already have an account? <Link href="/auth/login">Log in</Link>
+          <LoginForm />
+          <small className={styles.signup_message}>
+            Don't have an account? <Link href="/auth/signup">Sign up</Link>
           </small>
         </div>
         <footer className={styles.footer}>

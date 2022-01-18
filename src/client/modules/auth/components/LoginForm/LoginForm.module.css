@@ -1,0 +1,14 @@
+.signin_form {
+    display: flex;
+    flex-direction: column;
+  }
+
+.keep_logged {
+  color: var(--grey);
+  margin-left: 10px;
+}
+
+.input_keep_logged {
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+}
