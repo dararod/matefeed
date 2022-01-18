@@ -5,8 +5,8 @@
 
 <div align="center">
 
-  ![Build](https://github.com/matefeed/matefeed/workflows/build/badge.svg)
-  ![Lint](https://github.com/matefeed/matefeed/workflows/lint/badge.svg)
+![Build](https://github.com/matefeed/matefeed/workflows/build/badge.svg)
+![Lint](https://github.com/matefeed/matefeed/workflows/lint/badge.svg)
 
 </div>
 
