@@ -11,10 +11,10 @@
     "build:client": "NEXT_TELEMETRY_DISABLED=1 next build ./src/client",
     "build:server": "tsc",
     "dev": "NEXT_TELEMETRY_DISABLED=1 ts-node-dev --ignore-watch ./src/client --transpile-only ./src/main.ts",
-    "eslint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "fmt": "eslint . --ext .js,.jsx,.ts,.tsx --fix && prettier --write \"**/*.{json,md,yml,ts,tsx,js,jsx}\"",
+    "eslint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "fmt": "pnpm run eslint && pnpm run prettier",
     "knex": "knex --knexfile src/config/database/knexfile.ts",
-    "prettier": "prettier -c \"**/*.{md,json,yml,sh}\"",
+    "prettier": "prettier --write -c \"**/*.{md,json,yml,sh}\"",
     "start": "NEXT_TELEMETRY_DISABLED=1 node ./dist/main.js",
     "stylelint": "stylelint \"src/client/**/*.css\""
   },

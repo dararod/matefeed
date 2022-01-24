@@ -15,38 +15,38 @@ export type GetServerSidePropsAuthenticated = (
 
 export const getServerSidePropsAuthenticated =
   (getServerSideProps?: GetServerSidePropsAuthenticated) =>
-  async (
-    context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData> & {
+    async (
+      context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData> & {
       session: ApplicationCookies;
     },
-  ): Promise<GetServerSidePropsResult<unknown>> => {
-    const cookies = (context.req as unknown as Record<string, unknown>)
-      .cookies as ApplicationCookies;
+    ): Promise<GetServerSidePropsResult<unknown>> => {
+      const cookies = (context.req as unknown as Record<string, unknown>)
+        .cookies as ApplicationCookies;
 
-    if (cookies?.token && cookies?.refreshToken) {
-      const session = {
-        token: cookies.token,
-        refreshToken: cookies.refreshToken,
-      };
+      if (cookies?.token && cookies?.refreshToken) {
+        const session = {
+          token: cookies.token,
+          refreshToken: cookies.refreshToken,
+        };
 
-      if (getServerSideProps) {
-        return getServerSideProps({
-          ...context,
-          session,
-        });
+        if (getServerSideProps) {
+          return getServerSideProps({
+            ...context,
+            session,
+          });
+        }
+
+        return {
+          props: {
+            session,
+          },
+        };
       }
 
       return {
-        props: {
-          session,
+        redirect: {
+          permanent: false,
+          destination: '/login',
         },
       };
-    }
-
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/login',
-      },
     };
-  };
