@@ -59,6 +59,12 @@ This application uses [Feathericons](https://feathericons.com) to provide icons.
 You must import them from the `react-feather` module and use them as specified
 here: https://github.com/feathericons/react-feather.
 
+## GraphQL
+
+GraphQL is used.
+
+The playground is available on: http://127.0.0.1:3000/graphiql.
+
 # Contributing
 
 Every kind of contribution to this project is welcome, please, don't hesitate

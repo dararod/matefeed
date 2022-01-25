@@ -30,3 +30,6 @@ yarn-error.log*
 
 # Build Files
 .next
+
+# Generated Code
+./src/server/graphql/generated.ts

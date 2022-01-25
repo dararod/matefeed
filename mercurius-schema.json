@@ -1,0 +1,4 @@
+[
+  "type Query",
+  "type User {\n  id: ID!\n  firstName: String\n  lastName: String\n  email: String!\n  username: String!\n  createdAt: String!\n  updatedAt: String!\n}\n\nextend type Query {\n  me: User\n}"
+]

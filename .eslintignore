@@ -2,3 +2,5 @@
 dist/
 *.js
 *.jsx
+
+src/server/graphql/generated.ts

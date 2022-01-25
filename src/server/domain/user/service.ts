@@ -167,4 +167,10 @@ export class UserService {
       updatedAt: added.updatedAt,
     };
   }
+
+  public async findById(id: string): Promise<User> {
+    return await this.repository.findOne({
+      id,
+    });
+  }
 }

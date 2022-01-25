@@ -1,0 +1,13 @@
+type User {
+  id: ID!
+  firstName: String
+  lastName: String
+  email: String!
+  username: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+extend type Query {
+  me: User
+}

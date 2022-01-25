@@ -1,3 +1,5 @@
+import { Provider as UrqlProvider, createClient } from 'urql';
+
 import { CreatePostContextProvider } from '../contexts/CreatePost';
 import { AxiosContextProvider } from '../contexts/Axios';
 import { SessionContextProvider } from '../contexts/Session';
@@ -20,14 +22,20 @@ function App({
     };
   } & { [key: string]: unknown; children: ReactNode };
 }): JSX.Element {
+  const client = createClient({
+    url: 'http://localhost:3000/graphql/'
+  });
+
   return (
-    <SessionContextProvider session={pageProps.session}>
-      <AxiosContextProvider>
-        <CreatePostContextProvider>
-          <Component {...pageProps} />
-        </CreatePostContextProvider>
-      </AxiosContextProvider>
-    </SessionContextProvider>
+    <UrqlProvider value={client}>
+      <SessionContextProvider session={pageProps.session}>
+        <AxiosContextProvider>
+          <CreatePostContextProvider>
+            <Component {...pageProps} />
+          </CreatePostContextProvider>
+        </AxiosContextProvider>
+      </SessionContextProvider>
+    </UrqlProvider>
   );
 }
 
