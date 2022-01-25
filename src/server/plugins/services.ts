@@ -1,7 +1,7 @@
 import { FastifyInstance, RegisterOptions } from 'fastify';
 import fp from 'fastify-plugin';
 
-import { PostRepository, PostService } from '../domain/post';
+import { PostService } from '../domain/post';
 import { UserRepository, UserService } from '../domain/user';
 
 export interface Services {
@@ -17,7 +17,7 @@ export default fp(
   ): Promise<void> => {
     const database = fastify.database;
     const users = new UserService(new UserRepository(database));
-    const posts = new PostService(new PostRepository(database), users);
+    const posts = new PostService(database, users);
 
     fastify.decorate('services', {
       posts,

@@ -168,9 +168,21 @@ export class UserService {
     };
   }
 
+  public async findAll(): Promise<User[]> {
+    return await this.repository.findAll();
+  }
+
   public async findById(id: string): Promise<User> {
     return await this.repository.findOne({
       id,
     });
+  }
+
+  public async findByUsername(username: string): Promise<User[]> {
+    const rows = await this.repository.findWhere({
+      username,
+    });
+
+    return rows;
   }
 }

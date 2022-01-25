@@ -16,8 +16,12 @@
   --blue-darken: #17BAFB;
   --gray: #F7F8FC;
   --grey: #747476;
+  --purple: #8B52FF;
+  --purple-darken: #A53FE8;
   --red: #FB1741;
   --white: #FFFFFF;
+
+  --safe-zone: 1040px;
 }
 
 body {
@@ -28,4 +32,14 @@ body {
 
 a {
   color: var(--blue);
+}
+
+.safe-zone {
+  width: var(--safe-zone);
+}
+
+@media screen and (max-width: 1040px) {
+  .safe-zone {
+    width: 100%;
+  }
 }

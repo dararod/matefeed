@@ -1,16 +1,20 @@
 import Cookies from 'js-cookie';
 import { createContext, useState } from 'react';
 
+import services from '../services';
+
+import type { User } from '../services/UserService';
+
 export type SessionContextValue = {
   token: string;
-  user: object;
-  readToken(): void;
+  currentUser: User | null;
+  me(): void;
 };
 
 const initialContextValue: SessionContextValue = {
-  token: '',
-  user: null,
-  readToken: null,
+  token: null,
+  currentUser: null,
+  me: null,
 };
 
 export const SessionContext =
@@ -20,31 +24,33 @@ SessionContext.displayName = 'SessionContext';
 
 export function SessionContextProvider({
   children,
+  user,
   session,
 }: {
   children: JSX.Element;
+  user: User | null;
   session?: {
     token: string;
     refreshToken: string;
   };
 }): JSX.Element {
-  const [token, setToken] = useState(session?.token);
-  const [user, setUser] = useState(null);
+  const [token, setToken] = useState<string | null>(session?.token || null);
+  const [currentUser, setCurrentUser] = useState<User |  null>(user);
 
-  const readToken = () => {
+  const me = async (): Promise<void> => {
     const tokenCookie = Cookies.get('token');
-    const userCookie = Cookies.get('user');
+    const user = await services.userService.me(tokenCookie);
 
     setToken(tokenCookie);
-    setUser(userCookie);
-  };
+    setCurrentUser(user);
+  }
 
   return (
     <SessionContext.Provider
       value={{
         token,
-        user,
-        readToken,
+        currentUser,
+        me,
       }}
     >
       {children}

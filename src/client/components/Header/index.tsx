@@ -8,18 +8,17 @@ import styles from './Header.module.css';
 export default function Header(): JSX.Element {
   return (
     <header className={styles.header}>
-      <h1>matefeed&nbsp;🧉</h1>
-      <nav>
-        <ul>
-          <li>
-            <NavLink href="/">🔮&nbsp;Feed</NavLink>
-          </li>
-          <li>
-            <NavLink href="/hot">🔥&nbsp;Hot</NavLink>
-          </li>
-        </ul>
-      </nav>
-      <UserBar />
+      <div className={`${styles.header_safe_zone} safe-zone`}>
+        <h1>matefeed&nbsp;🧉</h1>
+        <nav>
+          <ul>
+            <li>
+              <NavLink href="/">🔮&nbsp;Feed</NavLink>
+            </li>
+          </ul>
+        </nav>
+        <UserBar />
+      </div>
     </header>
   );
 }

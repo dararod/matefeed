@@ -2,6 +2,6 @@
   "type Me {\n  user: User!\n  posts: [Post]!\n}",
   "type Mutation {\n  postCreate(input: CreatePostInput): Post!\n}",
   "type Post {\n  id: ID!\n  text: String\n  author: User!\n  createdAt: String!\n  updatedAt: String!\n}\n\ninput CreatePostInput {\n  text: String\n}",
-  "type Query {\n  me: Me!\n}",
-  "type User {\n  id: ID!\n  firstName: String\n  lastName: String\n  email: String!\n  username: String!\n  createdAt: String!\n  updatedAt: String!\n}"
+  "type Query {\n  me: User!\n  posts(username: String): [Post]!\n  users(username: String): [User]!\n}",
+  "type User {\n  id: ID!\n  firstName: String\n  lastName: String\n  email: String!\n  username: String!\n  birthdate: String!\n  createdAt: String!\n  updatedAt: String!\n}"
 ]

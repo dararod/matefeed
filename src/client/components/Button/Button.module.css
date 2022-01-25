@@ -35,6 +35,12 @@
   }
 }
 
+.icon {
+  height: 41px;
+  padding: .50rem;
+  width: 41px;
+}
+
 .loader {
   animation: spin 4s infinite linear;
   font-size: 1rem;
@@ -48,4 +54,14 @@
 
 .primary:hover {
   background-color: var(--blue-darken);
+}
+
+.secondary {
+  background-color: var(--gray);
+  color: var(--black);
+}
+
+.secondary:hover {
+  background-color: #d4f2fc;
+  color: var(--black);
 }

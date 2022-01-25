@@ -8,7 +8,6 @@ import mercurius from 'mercurius';
 import path from 'path';
 
 import { getEnv } from './infrastructure/environment';
-import knexconfig from '../config/database/knexfile';
 import databasePlugin from './plugins/database';
 import nextPlugin from './plugins/next';
 import servicesPlugin from './plugins/services';
@@ -63,21 +62,22 @@ export default async (): Promise<FastifyInstance> => {
     ide: false,
     path: '/graphql',
     context: async (req) => {
-      const cookies = req.cookies;
+      const authorization = req.headers.authorization;
+      const token = authorization.split(' ')[1];
       const services = server.services;
       const context = {
         request: req,
         services,
       }
 
-      if (!cookies?.token) {
+      if (!token) {
         return {
           ...context,
           user: null,
         } as GraphQLResolverContext;
       }
 
-      const claims = server.jwt.verify(cookies.token);
+      const claims = server.jwt.verify(token);
       const userId = (claims as unknown as Record<string, string>).id;
       const user = await server.services.users.findById(userId);
 
@@ -115,28 +115,15 @@ export default async (): Promise<FastifyInstance> => {
       endpointURL: '/graphql',
       initialQuery: `
       query {
-        me {
-          user {
-            id
-            firstName
-            lastName
-            email
-            username
-            createdAt
-            updatedAt
-          }
-          posts {
-            id
-            text
-          }
-        }
+        id
+        firstName
+        lastName
+        email
+        username
+        createdAt
+        updatedAt
       }
       `,
-    });
-
-    await server.database.migrate.latest({
-      ...knexconfig.migrations,
-      directory: 'src/config/database/.migrations',
     });
   }
 

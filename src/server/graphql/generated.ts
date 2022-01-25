@@ -33,12 +33,6 @@ export type Scalars = {
   _FieldSet: any;
 };
 
-export type Me = {
-  __typename?: 'Me';
-  user: User;
-  posts: Array<Maybe<Post>>;
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
   postCreate: Post;
@@ -63,6 +57,21 @@ export type CreatePostInput = {
 
 export type Query = {
   __typename?: 'Query';
+  me: User;
+  posts: Array<Maybe<Post>>;
+  users: Array<Maybe<User>>;
+};
+
+export type QuerypostsArgs = {
+  username?: InputMaybe<Scalars['String']>;
+};
+
+export type QueryusersArgs = {
+  username?: InputMaybe<Scalars['String']>;
+};
+
+export type Query = {
+  __typename?: 'Query';
   me: Me;
 };
 
@@ -73,6 +82,7 @@ export type User = {
   lastName?: Maybe<Scalars['String']>;
   email: Scalars['String'];
   username: Scalars['String'];
+  birthdate: Scalars['String'];
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
 };
@@ -177,7 +187,6 @@ export type DirectiveResolverFn<
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Me: ResolverTypeWrapper<Me>;
   Mutation: ResolverTypeWrapper<{}>;
   Post: ResolverTypeWrapper<Post>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
@@ -190,7 +199,6 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Me: Me;
   Mutation: {};
   Post: Post;
   ID: Scalars['ID'];
@@ -199,19 +207,6 @@ export type ResolversParentTypes = {
   Query: {};
   User: User;
   Boolean: Scalars['Boolean'];
-};
-
-export type MeResolvers<
-  ContextType = MercuriusContext,
-  ParentType extends ResolversParentTypes['Me'] = ResolversParentTypes['Me'],
-> = {
-  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  posts?: Resolver<
-    Array<Maybe<ResolversTypes['Post']>>,
-    ParentType,
-    ContextType
-  >;
-  isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type MutationResolvers<
@@ -242,7 +237,19 @@ export type QueryResolvers<
   ContextType = MercuriusContext,
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
 > = {
-  me?: Resolver<ResolversTypes['Me'], ParentType, ContextType>;
+  me?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  posts?: Resolver<
+    Array<Maybe<ResolversTypes['Post']>>,
+    ParentType,
+    ContextType,
+    RequireFields<QuerypostsArgs, never>
+  >;
+  users?: Resolver<
+    Array<Maybe<ResolversTypes['User']>>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryusersArgs, never>
+  >;
 };
 
 export type UserResolvers<
@@ -258,13 +265,13 @@ export type UserResolvers<
   lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   username?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  birthdate?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = MercuriusContext> = {
-  Me?: MeResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
@@ -293,11 +300,6 @@ export interface Loaders<
     reply: import('fastify').FastifyReply;
   },
 > {
-  Me?: {
-    user?: LoaderResolver<User, Me, {}, TContext>;
-    posts?: LoaderResolver<Array<Maybe<Post>>, Me, {}, TContext>;
-  };
-
   Post?: {
     id?: LoaderResolver<Scalars['ID'], Post, {}, TContext>;
     text?: LoaderResolver<Maybe<Scalars['String']>, Post, {}, TContext>;
@@ -312,6 +314,7 @@ export interface Loaders<
     lastName?: LoaderResolver<Maybe<Scalars['String']>, User, {}, TContext>;
     email?: LoaderResolver<Scalars['String'], User, {}, TContext>;
     username?: LoaderResolver<Scalars['String'], User, {}, TContext>;
+    birthdate?: LoaderResolver<Scalars['String'], User, {}, TContext>;
     createdAt?: LoaderResolver<Scalars['String'], User, {}, TContext>;
     updatedAt?: LoaderResolver<Scalars['String'], User, {}, TContext>;
   };

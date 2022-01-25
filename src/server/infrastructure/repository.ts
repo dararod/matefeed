@@ -23,6 +23,16 @@ export abstract class Repository<T> {
     }
   }
 
+  public async findAll(): Promise<T[]> {
+    try {
+      const rows = await this.database(this.tableName).select();
+
+      return rows;
+    } catch (err) {
+      throw RepositoryError.fromDatabaseError(err);
+    }
+  }
+
   public async findOne(
     where: Partial<T> | { [key: string]: unknown },
   ): Promise<T | null> {
@@ -51,6 +61,26 @@ export abstract class Repository<T> {
   ): Promise<void> {
     try {
       await this.database(this.tableName).update(data).where(where);
+    } catch (err) {
+      throw RepositoryError.fromDatabaseError(err);
+    }
+  }
+
+  public async findJoin(joinStatement: string, where?: { field: string, value: string | number }, orderBy?: string): Promise<T[]> {
+    // TODO: Do something about this horrible thing
+    try {
+      const query = this.database(this.tableName).select(`${this.tableName}.*`)
+        .joinRaw(joinStatement);
+
+      if (where) {
+        if (orderBy) {
+          return await query.where(where.field, where.value).orderBy(orderBy);
+        }
+
+        return await query.where(where.field, where.value);
+      }
+
+      return await query;
     } catch (err) {
       throw RepositoryError.fromDatabaseError(err);
     }

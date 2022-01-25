@@ -1,5 +1,6 @@
-import { Provider as UrqlProvider, createClient } from 'urql';
+import { Provider as UrqlProvider } from 'urql';
 
+import services from '../services';
 import { CreatePostContextProvider } from '../contexts/CreatePost';
 import { AxiosContextProvider } from '../contexts/Axios';
 import { SessionContextProvider } from '../contexts/Session';
@@ -7,6 +8,7 @@ import { SessionContextProvider } from '../contexts/Session';
 import type { ReactNode } from 'react';
 import type { AppContext } from 'next/app';
 import type { NextComponentType } from 'next';
+import type { User } from '../services/UserService';
 
 import '../styles/global.css';
 
@@ -20,15 +22,12 @@ function App({
       token: string;
       refreshToken: string;
     };
+    user: User | null;
   } & { [key: string]: unknown; children: ReactNode };
 }): JSX.Element {
-  const client = createClient({
-    url: 'http://localhost:3000/graphql/'
-  });
-
   return (
-    <UrqlProvider value={client}>
-      <SessionContextProvider session={pageProps.session}>
+    <UrqlProvider value={services.urqlClient}>
+      <SessionContextProvider session={pageProps.session} user={pageProps.user}>
         <AxiosContextProvider>
           <CreatePostContextProvider>
             <Component {...pageProps} />
@@ -55,10 +54,12 @@ App.getInitialProps = async (context: AppContext) => {
     token: cookies?.token,
     refreshToken: cookies?.refreshToken,
   };
+  const user = session.token ? await services.userService.me(session.token) : null;
 
   return {
     pageProps: {
       session,
+      user,
     },
   };
 };

@@ -1,14 +1,17 @@
 .header {
-  align-items: center;
   background-color: #fff;
   box-shadow:
     0 8.6px 7.6px rgb(0 0 0 / 2.5%),
     0 69px 80px rgb(0 0 0 / 5%);
   box-sizing: border-box;
-  display: flex;
   height: 70px;
-  justify-content: space-evenly;
-  padding: 0 1rem;
+}
+
+.header_safe_zone {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto ;
 }
 
 .header h1 {
@@ -47,4 +50,11 @@
 .link_active:hover {
   filter: grayscale(0%);
   transition: 0.5s;
+}
+
+@media screen and (max-width: 1040px) {
+  .header_safe_zone {
+    box-sizing: border-box;
+    padding: 0 1rem;
+  }
 }

@@ -56,7 +56,7 @@ export default function (
           path: '/',
         });
 
-        return reply.redirect(302, '/profile');
+        return reply.redirect(302, '/');
       } catch (err) {
         if (err instanceof ApiError) {
           return err.reply(reply);

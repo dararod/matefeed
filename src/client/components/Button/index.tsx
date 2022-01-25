@@ -8,17 +8,21 @@ export default function Button({
   type,
   children,
   variant,
+  icon,
   isLoading,
   isDisabled,
 }: {
   type: 'button' | 'submit';
   children: JSX.Element[] | JSX.Element | string;
-  variant?: 'primary';
+  variant?: 'primary' | 'secondary';
+  icon?: boolean;
   isLoading?: boolean;
   isDisabled?: boolean;
 }): JSX.Element {
   const className = classNames(styles.button, {
     [styles.primary]: variant === 'primary',
+    [styles.secondary]: variant === 'secondary',
+    [styles.icon]: icon,
   });
 
   return (

@@ -10,7 +10,7 @@ import styles from './Layout.module.css';
 export default function Layout({
   children,
 }: {
-  children: JSX.Element;
+  children: JSX.Element | JSX.Element[];
 }): JSX.Element {
   const createPost = useCreatePost();
 
