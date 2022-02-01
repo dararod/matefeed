@@ -14,10 +14,11 @@ import nextPlugin from './plugins/next';
 import servicesPlugin from './plugins/services';
 import routes from './routes';
 import packageJson from '../../package.json';
-import { resolvers } from './graphql';
+import { resolvers, loaders } from './graphql';
 
 import type { FastifyInstance } from 'fastify';
 import type { FastifyCookieOptions } from 'fastify-cookie';
+import { GraphQLResolverContext } from './@types/global';
 
 export default async (): Promise<FastifyInstance> => {
   const host = `localhost:${getEnv('PORT')}`;
@@ -58,25 +59,31 @@ export default async (): Promise<FastifyInstance> => {
   await server.register(mercurius, {
     schema,
     resolvers,
+    loaders,
     graphiql: true,
     context: async (req) => {
       const cookies = req.cookies;
-      
+      const services = server.services;
+      const context = {
+        request: req,
+        services,
+      }
+
       if (!cookies?.token) {
         return {
-          ...req,
+          ...context,
           user: null,
-        }
+        } as GraphQLResolverContext;
       }
 
       const claims = server.jwt.verify(cookies.token);
       const userId = (claims as unknown as Record<string, string>).id;
-      const user = server.services.users.findById(userId);
+      const user = await server.services.users.findById(userId);
 
       return {
-        ...req,
+        ...context,
         user,
-      }
+      } as GraphQLResolverContext;
     },
   });
   await server.register(fastifySwagger, {

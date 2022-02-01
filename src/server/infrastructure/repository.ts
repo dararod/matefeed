@@ -25,11 +25,21 @@ export abstract class Repository<T> {
 
   public async findOne(
     where: Partial<T> | { [key: string]: unknown },
-  ): Promise<T> {
+  ): Promise<T | null> {
     try {
       const row = await this.database(this.tableName).where(where).first();
 
       return row;
+    } catch (err) {
+      throw RepositoryError.fromDatabaseError(err);
+    }
+  }
+
+  public async findWhere(where: Partial<T> | { [key: string]: unknown }): Promise<T[]> {
+    try {
+      const rows = await this.database(this.tableName).where(where);
+
+      return rows;
     } catch (err) {
       throw RepositoryError.fromDatabaseError(err);
     }

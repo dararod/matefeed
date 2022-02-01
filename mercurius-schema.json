@@ -1,4 +1,5 @@
 [
-  "type Query",
-  "type User {\n  id: ID!\n  firstName: String\n  lastName: String\n  email: String!\n  username: String!\n  createdAt: String!\n  updatedAt: String!\n}\n\nextend type Query {\n  me: User\n}"
+  "type Query\n\ntype Mutation",
+  "type Post {\n  id: ID!\n  text: String\n  author: User!\n  createdAt: String!\n  updatedAt: String!\n}\n\ninput CreatePostInput {\n  text: String\n}\n\nextend type Mutation {\n  postCreate(input: CreatePostInput): Post!\n}",
+  "type User {\n  id: ID!\n  firstName: String\n  lastName: String\n  email: String!\n  username: String!\n  createdAt: String!\n  updatedAt: String!\n}\n\ntype Me {\n  user: User!\n  posts(after: ID): [Post]!\n}\n\nextend type Query {\n  me: Me!\n}"
 ]

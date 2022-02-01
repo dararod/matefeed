@@ -1,0 +1,15 @@
+type Post {
+  id: ID!
+  text: String
+  author: User!
+  createdAt: String!
+  updatedAt: String!
+}
+
+input CreatePostInput {
+  text: String
+}
+
+extend type Mutation {
+  postCreate(input: CreatePostInput): Post!
+}
