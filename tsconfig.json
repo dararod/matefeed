@@ -12,5 +12,5 @@
     "resolveJsonModule": true
   },
   "include": ["src/main.ts", "src/server/**/*.ts"],
-  "exclude": ["node_modules", "src/client"]
+  "exclude": ["node_modules", "src/client", "src/server/graphql/generated.ts"]
 }

@@ -3,7 +3,7 @@ import fastifyCookie from 'fastify-cookie';
 import fastifyJwt from 'fastify-jwt';
 import fastifySwagger from 'fastify-swagger';
 import { buildSchema } from 'graphql';
-import { codegenMercurius, loadSchemaFiles } from 'mercurius-codegen';
+import { loadSchemaFiles, codegenMercurius } from 'mercurius-codegen';
 import mercurius from 'mercurius';
 import path from 'path';
 
@@ -14,11 +14,11 @@ import nextPlugin from './plugins/next';
 import servicesPlugin from './plugins/services';
 import routes from './routes';
 import packageJson from '../../package.json';
-import { resolvers, loaders } from './graphql';
+import resolvers from './graphql/resolvers';
 
 import type { FastifyInstance } from 'fastify';
 import type { FastifyCookieOptions } from 'fastify-cookie';
-import { GraphQLResolverContext } from './@types/global';
+import type { GraphQLResolverContext } from './@types/global';
 
 export default async (): Promise<FastifyInstance> => {
   const host = `localhost:${getEnv('PORT')}`;
@@ -29,7 +29,7 @@ export default async (): Promise<FastifyInstance> => {
     },
   });
 
-  const { schema } = loadSchemaFiles(path.join(__dirname, 'graphql/**/*.gql'), {
+  const { schema } = loadSchemaFiles(path.join(__dirname, 'graphql/schema/**/*.gql'), {
     watchOptions: {
       enabled: process.env.NODE_ENV === 'development',
       onChange(schema) {
@@ -38,7 +38,7 @@ export default async (): Promise<FastifyInstance> => {
 
         codegenMercurius(server, {
           targetPath: path.join(__dirname, 'graphql/generated.ts'),
-          operationsGlob: path.join(__dirname, 'graphql/**/*.gql'),
+          operationsGlob: path.join(__dirname, 'graphql/operations/**/*.gql'),
         }).catch(console.error)
       },
     }
@@ -59,8 +59,9 @@ export default async (): Promise<FastifyInstance> => {
   await server.register(mercurius, {
     schema,
     resolvers,
-    loaders,
-    graphiql: true,
+    graphiql: false,
+    ide: false,
+    path: '/graphql',
     context: async (req) => {
       const cookies = req.cookies;
       const services = server.services;
@@ -105,7 +106,34 @@ export default async (): Promise<FastifyInstance> => {
   await server.register(nextPlugin);
   await server.register(servicesPlugin);
 
-  if (process.env.NODE_ENV !== 'development') {
+  if (process.env.NODE_ENV === 'development') {
+    const altairFastifyPlugin = (await import('altair-fastify-plugin')).default;
+
+    await server.register(altairFastifyPlugin, {
+      path: '/altair',
+      baseURL: '/altair/',
+      endpointURL: '/graphql',
+      initialQuery: `
+      query {
+        me {
+          user {
+            id
+            firstName
+            lastName
+            email
+            username
+            createdAt
+            updatedAt
+          }
+          posts {
+            id
+            text
+          }
+        }
+      }
+      `,
+    });
+
     await server.database.migrate.latest({
       ...knexconfig.migrations,
       directory: 'src/config/database/.migrations',

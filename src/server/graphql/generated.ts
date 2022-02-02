@@ -1,5 +1,6 @@
 import type { GraphQLResolveInfo } from 'graphql';
 import type { MercuriusContext } from 'mercurius';
+import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -32,9 +33,10 @@ export type Scalars = {
   _FieldSet: any;
 };
 
-export type Query = {
-  __typename?: 'Query';
-  me: Me;
+export type Me = {
+  __typename?: 'Me';
+  user: User;
+  posts: Array<Maybe<Post>>;
 };
 
 export type Mutation = {
@@ -59,6 +61,11 @@ export type CreatePostInput = {
   text?: InputMaybe<Scalars['String']>;
 };
 
+export type Query = {
+  __typename?: 'Query';
+  me: Me;
+};
+
 export type User = {
   __typename?: 'User';
   id: Scalars['ID'];
@@ -68,16 +75,6 @@ export type User = {
   username: Scalars['String'];
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
-};
-
-export type Me = {
-  __typename?: 'Me';
-  user: User;
-  posts: Array<Maybe<Post>>;
-};
-
-export type MepostsArgs = {
-  after?: InputMaybe<Scalars['ID']>;
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -180,35 +177,41 @@ export type DirectiveResolverFn<
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Query: ResolverTypeWrapper<{}>;
+  Me: ResolverTypeWrapper<Me>;
   Mutation: ResolverTypeWrapper<{}>;
   Post: ResolverTypeWrapper<Post>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   String: ResolverTypeWrapper<Scalars['String']>;
   CreatePostInput: CreatePostInput;
+  Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User>;
-  Me: ResolverTypeWrapper<Me>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Query: {};
+  Me: Me;
   Mutation: {};
   Post: Post;
   ID: Scalars['ID'];
   String: Scalars['String'];
   CreatePostInput: CreatePostInput;
+  Query: {};
   User: User;
-  Me: Me;
   Boolean: Scalars['Boolean'];
 };
 
-export type QueryResolvers<
+export type MeResolvers<
   ContextType = MercuriusContext,
-  ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
+  ParentType extends ResolversParentTypes['Me'] = ResolversParentTypes['Me'],
 > = {
-  me?: Resolver<ResolversTypes['Me'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  posts?: Resolver<
+    Array<Maybe<ResolversTypes['Post']>>,
+    ParentType,
+    ContextType
+  >;
+  isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type MutationResolvers<
@@ -235,6 +238,13 @@ export type PostResolvers<
   isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type QueryResolvers<
+  ContextType = MercuriusContext,
+  ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
+> = {
+  me?: Resolver<ResolversTypes['Me'], ParentType, ContextType>;
+};
+
 export type UserResolvers<
   ContextType = MercuriusContext,
   ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User'],
@@ -253,26 +263,12 @@ export type UserResolvers<
   isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type MeResolvers<
-  ContextType = MercuriusContext,
-  ParentType extends ResolversParentTypes['Me'] = ResolversParentTypes['Me'],
-> = {
-  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  posts?: Resolver<
-    Array<Maybe<ResolversTypes['Post']>>,
-    ParentType,
-    ContextType,
-    RequireFields<MepostsArgs, never>
-  >;
-  isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type Resolvers<ContextType = MercuriusContext> = {
-  Query?: QueryResolvers<ContextType>;
+  Me?: MeResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
+  Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
-  Me?: MeResolvers<ContextType>;
 };
 
 type Loader<TReturn, TObj, TParams, TContext> = (
@@ -297,6 +293,11 @@ export interface Loaders<
     reply: import('fastify').FastifyReply;
   },
 > {
+  Me?: {
+    user?: LoaderResolver<User, Me, {}, TContext>;
+    posts?: LoaderResolver<Array<Maybe<Post>>, Me, {}, TContext>;
+  };
+
   Post?: {
     id?: LoaderResolver<Scalars['ID'], Post, {}, TContext>;
     text?: LoaderResolver<Maybe<Scalars['String']>, Post, {}, TContext>;
@@ -314,12 +315,101 @@ export interface Loaders<
     createdAt?: LoaderResolver<Scalars['String'], User, {}, TContext>;
     updatedAt?: LoaderResolver<Scalars['String'], User, {}, TContext>;
   };
-
-  Me?: {
-    user?: LoaderResolver<User, Me, {}, TContext>;
-    posts?: LoaderResolver<Array<Maybe<Post>>, Me, MepostsArgs, TContext>;
-  };
 }
+export type Unnamed_1_MutationVariables = Exact<{
+  input?: InputMaybe<CreatePostInput>;
+}>;
+
+export type Unnamed_1_Mutation = {
+  __typename?: 'Mutation';
+  postCreate: {
+    __typename?: 'Post';
+    id: string;
+    text?: string | null | undefined;
+    createdAt: string;
+    updatedAt: string;
+    author: {
+      __typename?: 'User';
+      id: string;
+      firstName?: string | null | undefined;
+      lastName?: string | null | undefined;
+      username: string;
+    };
+  };
+};
+
+export const Document = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'input' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'CreatePostInput' },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'postCreate' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'input' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'input' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'author' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'firstName' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'lastName' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'username' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<Mutation, MutationVariables>;
 declare module 'mercurius' {
   interface IResolvers
     extends Resolvers<import('mercurius').MercuriusContext> {}

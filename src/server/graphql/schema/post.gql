@@ -9,7 +9,3 @@ type Post {
 input CreatePostInput {
   text: String
 }
-
-extend type Mutation {
-  postCreate(input: CreatePostInput): Post!
-}

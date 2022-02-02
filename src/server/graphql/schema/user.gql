@@ -7,12 +7,3 @@ type User {
   createdAt: String!
   updatedAt: String!
 }
-
-type Me {
-  user: User!
-  posts(after: ID): [Post]!
-}
-
-extend type Query {
-  me: Me!
-}

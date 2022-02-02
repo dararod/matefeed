@@ -1,0 +1,22 @@
+query {
+  me {
+    user {
+      id
+      firstName
+      lastName
+      email
+      username
+      createdAt
+      updatedAt
+    }
+    posts {
+      id
+      text
+      author {
+        id
+      }
+      createdAt
+      updatedAt
+    }
+  }
+}
