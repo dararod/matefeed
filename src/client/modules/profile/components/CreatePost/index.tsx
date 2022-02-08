@@ -1,9 +1,17 @@
 import React from 'react';
 import { Image, Video } from 'react-feather';
 
+import { useSession } from '../../../../hooks/useSession';
+import services from '../../../../services';
+
 import styles from './CreatePostProfile.module.css';
 
 export default function CreatePostProfile() : JSX.Element {
+  const { token } = useSession();
+  const handleSubmit = async () => {
+    await services.postService.createPost(token, 'David sabeeeeeee');
+  };
+
   return (
     <div className={styles.post_container}>
       <div>
@@ -23,7 +31,7 @@ export default function CreatePostProfile() : JSX.Element {
           <Video/>
           <span>Video</span>
         </button>
-        <button className={styles.create_post_button}>
+        <button className={styles.create_post_button} onClick={handleSubmit}>
                     post
         </button>
       </div>

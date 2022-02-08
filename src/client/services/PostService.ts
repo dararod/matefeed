@@ -85,4 +85,36 @@ export class PostService extends GraphQLService {
 
     return result.data.posts;
   }
+
+  public async createPost(token: string, text: string): Promise<Post> {
+    const result = await this.client.mutation(`
+    mutation($postData: CreatePostInput) {
+      postCreate(input: $postData) {
+        id
+        text
+        createdAt
+        updatedAt
+        author {
+          id
+          username
+        }
+      }
+    }`, {
+      postData: {
+        text,
+      }
+    }, {
+      fetchOptions: {
+        headers: {
+          'Authorization': `JWT ${token}`,
+        }
+      }
+    }).toPromise();
+
+    if (result.error) {
+      throw result.error;
+    }
+
+    return result.data.postCreate;
+  }
 }
