@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, Video } from 'react-feather';
 
 import { useSession } from '../../../../hooks/useSession';
@@ -7,9 +7,14 @@ import services from '../../../../services';
 import styles from './CreatePostProfile.module.css';
 
 export default function CreatePostProfile() : JSX.Element {
+  const [text, setText] = useState("");
+    const updateInput = (event) => {
+      setText(event.target.value);
+    };
   const { token } = useSession();
   const handleSubmit = async () => {
-    await services.postService.createPost(token, 'David sabeeeeeee');
+    await services.postService.createPost(token, text);
+    
   };
 
   return (
@@ -20,7 +25,11 @@ export default function CreatePostProfile() : JSX.Element {
           alt=""
           height={50}
           width={50} />
-        <input type="text" placeholder=" What's on your mind?" />
+        <input 
+          type="text" 
+          onChange={updateInput}
+          placeholder=" What's on your mind?"
+           />
       </div>
       <div className={styles.post_action_buttons}>
         <button className={styles.post_button}>
