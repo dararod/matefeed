@@ -63,29 +63,32 @@ export default async (): Promise<FastifyInstance> => {
     path: '/graphql',
     context: async (req) => {
       const authorization = req.headers.authorization;
-      const token = authorization.split(' ')[1];
       const services = server.services;
       const context = {
         request: req,
         services,
       }
 
-      if (!token) {
-        return {
-          ...context,
-          user: null,
-        } as GraphQLResolverContext;
-      }
+      if (typeof authorization === 'string' && authorization) {
+        const token = authorization.split(' ')[1];
 
-      const claims = server.jwt.verify(token);
-      const userId = (claims as unknown as Record<string, string>).id;
-      const user = await server.services.users.findById(userId);
+        if (token) {
+          const claims = server.jwt.verify(token);
+          const userId = (claims as unknown as Record<string, string>).id;
+          const user = await server.services.users.findById(userId);
+
+          return {
+            ...context,
+            user,
+          } as GraphQLResolverContext;
+        }
+      }
 
       return {
         ...context,
-        user,
+        user: null,
       } as GraphQLResolverContext;
-    },
+    }
   });
   await server.register(fastifySwagger, {
     routePrefix: 'api/docs',
