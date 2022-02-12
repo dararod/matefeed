@@ -7,3 +7,18 @@
 .posts_list {
   grid-column: 1 / 1;
 }
+
+@media screen and (max-width: 800px) {
+  .feed {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 600px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .gadgets {
+    display: none;
+  }
+}

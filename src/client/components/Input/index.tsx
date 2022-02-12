@@ -9,6 +9,7 @@ export default function Input({
   name,
   value,
   error,
+  fullWidth,
   onBlur,
   onChange,
 }: {
@@ -17,14 +18,26 @@ export default function Input({
   name: string;
   value: string;
   error?: string;
-  onBlur(e: React.FocusEvent<unknown>): void;
+  fullWidth?: boolean;
+  onBlur?(e: React.FocusEvent<unknown>): void;
   onChange(e: React.ChangeEvent<unknown>): void;
 }): JSX.Element {
-  const className = classNames([styles.input, error && styles.input_error]);
+  const className = classNames(styles.input, {
+    [styles.input_error]: error,
+    [styles.full_width]: fullWidth,
+  });
+
+  const wrapperClassNames = classNames(styles.input_wrapper, {
+    [styles.full_width]: fullWidth,
+  });
+
+  const containerClassNames = classNames(styles.input_container, {
+    [styles.full_width]: fullWidth,
+  });
 
   return (
-    <div className={styles.input_wrapper}>
-      <div className={styles.input_container}>
+    <div className={wrapperClassNames}>
+      <div className={containerClassNames}>
         <input
           id={name}
           type={type}

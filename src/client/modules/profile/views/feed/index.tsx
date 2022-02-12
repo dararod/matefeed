@@ -14,7 +14,7 @@ export default function UserFeed({ posts }: { posts: Post[]; }): JSX.Element {
         <CreatePost/>
         <Feed posts={posts} />
       </div>
-      <article>
+      <article className={styles.gadgets}>
         FollowMe
       </article>
     </div>
