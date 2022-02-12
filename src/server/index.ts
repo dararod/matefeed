@@ -63,7 +63,7 @@ export default async (): Promise<FastifyInstance> => {
     path: '/graphql',
     context: async (req) => {
       const authorization = req.headers.authorization;
-      const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViNDFhZWY5LWU3NWYtNDQ0Mi1hYTNkLTliMjM1YTIyYjBkZSIsImlhdCI6MTY0NDY4MDA5OSwiZXhwIjoxNjQ0NzY2NDk5LCJhdWQiOiJtYXRlZmVlZCIsImlzcyI6Im1hdGVmZWVkIn0.6nm3970k2igTXhLzIC-kvIZ2LJa3rpnw11EWjbuWrMM';
+      const token = authorization.split(' ')[1];
       const services = server.services;
       const context = {
         request: req,
