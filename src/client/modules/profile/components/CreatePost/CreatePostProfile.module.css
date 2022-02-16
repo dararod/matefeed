@@ -44,18 +44,24 @@
   border-radius: 1rem;
 }
 
+.post_action_buttons {
+  display: flex;
+  grid-column: 2 / 2;
+  grid-row: 2 / 2;
+  justify-content: space-between;
+}
+
 .post_button {
   align-items: center;
   background-color: var(--gray);
   border: transparent;
-  border-radius: 1rem;
+  border-radius: .7rem;
   box-sizing: border-box;
   cursor: pointer;
   display: flex;
   font-weight: 600;
+  height: 2.5rem;
   justify-content: center;
-  margin-left: 4.4rem;
-  padding: .3rem .8rem;
   width: 10rem;
 }
 
@@ -68,13 +74,12 @@
   align-items: center;
   background-color: var(--gray);
   border: transparent;
-  border-radius: 1rem;
+  border-radius: .7rem;
   cursor: pointer;
   display: flex;
   font-weight: 600;
+  height: 2.5rem;
   justify-content: center;
-  margin-left: 7rem;
-  margin-right: 3rem;
   text-transform: uppercase;
   width: 10rem;
 }
@@ -82,10 +87,4 @@
 .create_post_button:hover{
   background-color: #d4f2fc;
   transition: background-color var(--transition-time);
-}
-
-.post_action_buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 1rem;
 }

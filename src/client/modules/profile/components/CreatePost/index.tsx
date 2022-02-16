@@ -57,7 +57,7 @@ export default function CreatePostProfile(): JSX.Element {
           <span>Video</span>
         </button>
         <button className={styles.create_post_button} onClick={handleSubmit}>
-          Post
+          <h3>Post</h3>
         </button>
       </div>
     </div>
