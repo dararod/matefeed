@@ -85,6 +85,6 @@
 }
 
 .create_post_button:hover{
-  background-color: #d4f2fc;
+  background-color: #e3e7e8;
   transition: background-color var(--transition-time);
 }
