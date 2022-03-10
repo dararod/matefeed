@@ -23,80 +23,88 @@ export default function UserFeed({ posts }: { posts: Post[]; }): JSX.Element {
             <MoreHorizontal/>
           </button>
         </article>
-        <div className={styles.followers_image}>
-        <figure>
+        <div className={styles.followers_box}>
+        <figure className={styles.followers_image}>
           <img
            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
            alt=""
-           height={45}
-           width={45} />
-          <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
-               alt=""
-               height={45}
-               width={45} />
-               <img
+           height={60}
+           width={60} />
+            <img
            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
            alt=""
-           height={45}
-           width={45} />
-          <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
-               alt=""
-               height={45}
-               width={45} />
-               <img
+           height={60}
+           width={60} />
+            <img
            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
            alt=""
-           height={45}
-           width={45} />
-          <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
-               alt=""
-               height={45}
-               width={45} />
-               <img
+           height={60}
+           width={60} />
+            <img
            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
            alt=""
-           height={45}
-           width={45} />
-          <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
-               alt=""
-               height={45}
-               width={45} />
-               <img
+           height={60}
+           width={60} />
+            <img
            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
            alt=""
-           height={45}
-           width={45} />
-          <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
-               alt=""
-               height={45}
-               width={45} />
-        <img
+           height={60}
+           width={60} />
+            <img
            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
            alt=""
-           height={45}
-           width={45} />
-          <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
-               alt=""
-               height={45}
-               width={45} />
-               <img
+           height={60}
+           width={60} />
+            <img
            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
            alt=""
-           height={45}
-           width={45} />
-          <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
-               alt=""
-               height={45}
-               width={45} />
-               <img
+           height={60}
+           width={60} />
+            <img
            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
            alt=""
-           height={45}
-           width={45} />
-          <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
-               alt=""
-               height={45}
-               width={45} />
+           height={60}
+           width={60} />
+            <img
+           src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
+           alt=""
+           height={60}
+           width={60} />
+            <img
+           src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
+           alt=""
+           height={60}
+           width={60} />
+            <img
+           src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
+           alt=""
+           height={60}
+           width={60} />
+            <img
+           src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
+           alt=""
+           height={60}
+           width={60} />
+            <img
+           src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
+           alt=""
+           height={60}
+           width={60} />
+            <img
+           src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
+           alt=""
+           height={60}
+           width={60} />
+            <img
+           src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
+           alt=""
+           height={60}
+           width={60} />
+            <img
+           src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Favatarfiles.alphacoders.com%2F157%2F157302.jpg&f=1&nofb=1"
+           alt=""
+           height={60}
+           width={60} />
         </figure>
       </div>
       </div>

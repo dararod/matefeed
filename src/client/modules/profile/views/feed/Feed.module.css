@@ -1,7 +1,7 @@
 .feed {
   display: grid;
   gap: 1rem;
-  grid-template-columns: minmax(600px, 600px) auto;
+  grid-template-columns: minmax(650px, 600px) auto;
 }
 
 .posts_list {
@@ -30,11 +30,6 @@
   transition: box-shadow var(--transition-time);
 }
 
-.followers_image {
-  background-color: tomato;
-  display: flex;
-}
-
 .gadgets {
   display: flex;
   justify-content: space-between;
@@ -50,7 +45,7 @@
   color: var(--grey);
   font-size: 20px;
   font-weight: 600;
-  padding-right: 10.5rem;
+  padding-right: 9.5rem;
 }
 
 .gadgets button {
@@ -59,3 +54,22 @@
   color: var(--grey);
   cursor: pointer;
 }
+
+.followers_box {
+  background-color: transparent;
+  display: flex;
+}
+
+.followers_image {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  gap: 17px;
+  margin-top: 1rem;
+  margin-left: 1.7rem;
+}
+
+.followers_image img {
+  border-radius: .5rem;
+}
+

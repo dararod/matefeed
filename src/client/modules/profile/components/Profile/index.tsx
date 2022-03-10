@@ -34,7 +34,7 @@ export default function Profile({ profile }: { profile: User; }): JSX.Element {
         <Tab href={`/users/${profile.username}`} label="Feed" >
           <Menu />
         </Tab>
-        <Tab href={`/users/${profile.username}/photos`} label="Feed" >
+        <Tab href={`/users/${profile.username}/photos`} label="Photos" >
           <Image />
         </Tab>
         <Tab href={`/users/${profile.username}/about`} label="About" >
