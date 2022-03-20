@@ -4,6 +4,7 @@ import { Image, Video } from 'react-feather';
 import { useSession } from '../../../../hooks/useSession';
 import Input from '../../../../components/Input';
 import services from '../../../../services';
+import CreatePostModal from '../../../../components/CreatePostModal';
 
 import styles from './CreatePostProfile.module.css';
 
@@ -48,7 +49,7 @@ export default function CreatePostProfile(): JSX.Element {
         />
       </div>
       <div className={styles.post_action_buttons}>
-        <button className={styles.post_button}>
+        <button onClick={CreatePostModal.openModal} className={styles.post_button}>
           <Image />
           <span>Photo</span>
         </button>
