@@ -16,7 +16,10 @@ export default function UserFeed({ posts }: { posts: Post[]; }): JSX.Element {
         <CreatePostProfile/>
         <Feed posts={posts} />
       </div>
+      <div>
       <FollowersBox/>
+      <FollowingBox/>
+      </div>
     </div>
   );
 }
