@@ -1,8 +1,8 @@
 import React from 'react';
-import Link from 'next/link';
 import { Send, Menu, Image, Info, Edit3 } from 'react-feather';
 
 import Button from '../../../../components/Button';
+import Tab from './Tab';
 
 import type { User } from '../../../../services/UserService';
 
@@ -31,46 +31,18 @@ export default function Profile({ profile }: { profile: User; }): JSX.Element {
         </div>
       </div>
       <ul className={styles.navigation_tabs}>
-        <li>
-          <Link href={`/users/${profile.username}/`}>
-            <div>
-              <figure>
-                <Menu />
-              </figure>
-              <span>Feed</span>
-            </div>
-          </Link>
-        </li>
-        <li>
-          <Link href={`/users/${profile.username}/photos`}>
-            <div>
-              <figure>
-                <Image />
-              </figure>
-              <span>Photos</span>
-            </div>
-          </Link>
-        </li>
-        <li>
-          <Link href={`/users/${profile.username}/about`}>
-            <div>
-              <figure>
-                <Info />
-              </figure>
-              <span>About</span>
-            </div>
-          </Link>
-        </li>
-        <li>
-          <Link href={`/users/${profile.username}/edit`}>
-            <div>
-              <figure>
-                <Edit3 />
-              </figure>
-              <span>Edit Profile</span>
-            </div>
-          </Link>
-        </li>
+        <Tab href={`/users/${profile.username}`} label="Feed" >
+          <Menu />
+        </Tab>
+        <Tab href={`/users/${profile.username}/photos`} label="Photos" >
+          <Image />
+        </Tab>
+        <Tab href={`/users/${profile.username}/about`} label="About" >
+          <Info />
+        </Tab>
+        <Tab href={`/users/${profile.username}/edit`} label="Edit" >
+          <Edit3 />
+        </Tab>
       </ul>
     </div>
   );

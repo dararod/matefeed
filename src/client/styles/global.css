@@ -7,6 +7,9 @@
   /* Box Shadow */
   --shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 
+  /* Border Radius */
+  --rounded: .5rem;
+
   /* Transitions */
   --transition-time: .25s;
 
@@ -22,6 +25,9 @@
   --white: #FFFFFF;
 
   --safe-zone: 1040px;
+
+  /* Components  */
+  --avatar-sm: 45px;
 }
 
 body {
